@@ -253,6 +253,3 @@ sam delete --stack-name easyqa
 
 Amplify コンソールからアプリを選択し、「アプリの削除」を実行してください。
 
-## ライセンス
-
-MIT
