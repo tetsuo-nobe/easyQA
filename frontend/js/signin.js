@@ -123,6 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // 成功時: セッション保存、フォーム非表示、アクション選択UI表示
       saveSession('instructor', null, instructorId);
       instructorForm.classList.add('hidden');
+      // ロール選択ボタンを非表示（受講者ボタンを隠す）
+      const roleSelector = document.querySelector('.role-selector');
+      if (roleSelector) roleSelector.classList.add('hidden');
       instructorActions.classList.remove('hidden');
     } catch (error) {
       // エラー時: 日本語メッセージを表示し、フォームの入力内容は保持
