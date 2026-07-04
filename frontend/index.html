@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>easyQA - サインイン</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="signin-container">
+    <h1 class="signin-container__title">easyQA</h1>
+
+    <!-- エラーメッセージ -->
+    <div id="error-message" class="message"></div>
+
+    <!-- ロール選択 -->
+    <div class="role-selector">
+      <button id="role-learner" class="role-selector__btn" type="button">受講者</button>
+      <button id="role-instructor" class="role-selector__btn" type="button">インストラクター</button>
+    </div>
+
+    <!-- 受講者フォーム（初期非表示） -->
+    <form id="learner-form" class="hidden">
+      <div class="form-group">
+        <label for="learner-class-id">Class ID</label>
+        <input type="text" id="learner-class-id" name="classId" maxlength="50" placeholder="クラスIDを入力" required>
+      </div>
+      <div class="form-group">
+        <label for="learner-password">パスワード</label>
+        <input type="password" id="learner-password" name="password" maxlength="100" placeholder="パスワードを入力" required>
+      </div>
+      <button type="submit" class="btn btn--primary" style="width:100%;">サインイン</button>
+    </form>
+
+    <!-- インストラクターフォーム（初期非表示） -->
+    <form id="instructor-form" class="hidden">
+      <div class="form-group">
+        <label for="instructor-id">インストラクターID</label>
+        <input type="text" id="instructor-id" name="instructorId" maxlength="50" placeholder="インストラクターIDを入力" required>
+      </div>
+      <div class="form-group">
+        <label for="instructor-password">パスワード</label>
+        <input type="password" id="instructor-password" name="password" maxlength="100" placeholder="パスワードを入力" required>
+      </div>
+      <button type="submit" class="btn btn--primary" style="width:100%;">サインイン</button>
+    </form>
+
+    <!-- インストラクターアクション選択（サインイン成功後に表示） -->
+    <div id="instructor-actions" class="hidden action-selector">
+      <button id="action-qa-list" class="action-selector__btn" type="button">質問・回答一覧</button>
+      <button id="action-class-register" class="action-selector__btn" type="button">クラス登録</button>
+      <button id="signout-btn" class="action-selector__btn" type="button" style="border-color:#f44336;color:#f44336;">サインアウト</button>
+    </div>
+
+    <!-- ClassID入力（質問・回答一覧選択時に表示） -->
+    <div id="classid-input" class="hidden classid-input">
+      <div class="form-group">
+        <label for="instructor-class-id">対象 Class ID</label>
+        <input type="text" id="instructor-class-id" name="classId" maxlength="50" placeholder="クラスIDを入力" required>
+      </div>
+      <button id="classid-submit" class="btn btn--primary" type="button" style="width:100%;">確定</button>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/signin.js"></script>
+</body>
+</html>

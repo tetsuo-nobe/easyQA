@@ -1,0 +1,5 @@
+boto3
+bcrypt
+hypothesis
+moto
+pytest

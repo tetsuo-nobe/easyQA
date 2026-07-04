@@ -1,0 +1,469 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 ディレクトリ構造とバックエンド共通設定を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151356468
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151370933
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151538667
+      }
+    ],
+    "1.2 SAM テンプレート（`backend/template.yaml`）を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151356909
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151372005
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151539382
+      }
+    ],
+    "2.1 POST /signin Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357059
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151545812
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151669570
+      }
+    ],
+    "3.1 GET /questions Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357263
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151546572
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151670334
+      }
+    ],
+    "3.2 POST /questions Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357419
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151547334
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151671053
+      }
+    ],
+    "4. チェックポイント - バックエンド基盤テストの確認": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357606
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151997805
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152002841
+      }
+    ],
+    "5.1 PUT /questions/{questionNumber}/answer Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357780
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151842786
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151962500
+      }
+    ],
+    "6.1 GET /classes Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151357920
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151548099
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151671741
+      }
+    ],
+    "6.2 POST /classes Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358016
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151548973
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151672602
+      }
+    ],
+    "6.3 PUT /classes/{classId} Lambda ハンドラーを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358133
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151678867
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151686567
+      }
+    ],
+    "7. チェックポイント - バックエンド全テストの確認": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358297
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152008019
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152012708
+      }
+    ],
+    "8.1 `frontend/js/api.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358391
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151679475
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151835972
+      }
+    ],
+    "8.2 `frontend/js/auth.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358484
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151680221
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151836689
+      }
+    ],
+    "9.1 `frontend/css/style.css` を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358567
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151680976
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151835400
+      }
+    ],
+    "9.2 `frontend/index.html`（サインインページ）を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358684
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151843599
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151963354
+      }
+    ],
+    "9.3 `frontend/learner.html`（受講者メインページ）を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358772
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151844459
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151964149
+      }
+    ],
+    "9.4 `frontend/instructor.html`（インストラクターメインページ）を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358859
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151845221
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151964932
+      }
+    ],
+    "9.5 `frontend/class-registration.html`（クラス登録ページ）を作成する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151358956
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151846037
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151965759
+      }
+    ],
+    "10.1 `frontend/js/signin.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359050
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152030117
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152187127
+      }
+    ],
+    "10.2 `frontend/js/learner.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359147
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152030821
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152187800
+      }
+    ],
+    "10.3 `frontend/js/instructor.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359244
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152031576
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152188557
+      }
+    ],
+    "10.4 `frontend/js/class-registration.js` を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359342
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152032385
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152189334
+      }
+    ],
+    "11. チェックポイント - 全テストの確認": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359426
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152195697
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152200465
+      }
+    ],
+    "13. 最終チェックポイント - 全テストの確認": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151359521
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152205443
+      },
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152210309
+      }
+    ],
+    "1. プロジェクト構造とインフラ定義のセットアップ": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151539517
+      }
+    ],
+    "2. 認証 Lambda（`backend/functions/signin/app.py`）を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151669689
+      }
+    ],
+    "3. 質問管理 Lambda（`backend/functions/questions/app.py`）を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151671163
+      }
+    ],
+    "6. クラス管理 Lambda（`backend/functions/classes/app.py`）を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151686653
+      }
+    ],
+    "8. フロントエンド共通モジュールを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151836772
+      }
+    ],
+    "5. 回答管理 Lambda（`backend/functions/answers/app.py`）を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151962603
+      }
+    ],
+    "9. フロントエンド HTML/CSS を実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783151965972
+      }
+    ],
+    "10. フロントエンドページロジックを実装する": [
+      {
+        "executionId": "250727cf-8783-42e0-bb7b-71eb8a468353",
+        "chatSessionId": "sess_4abca738-7adb-4d0f-8bfc-c2cc58153e52",
+        "timestamp": 1783152189471
+      }
+    ]
+  }
+}

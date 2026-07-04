@@ -1,0 +1,632 @@
+/* ==========================================================================
+   easyQA 共通スタイル
+   教育向けQAアプリケーション — 日本語UIを前提としたシンプルなデザイン
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   リセットと基本設定
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+  color: #333333;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   コンテナ（中央寄せ・最大幅制限）
+   -------------------------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   ヘッダー（ページタイトル + サインアウトボタン配置）
+   -------------------------------------------------------------------------- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+.header__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   ボタン共通
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.1s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+.btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.88);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* プライマリボタン（青） */
+.btn--primary {
+  background-color: #2196F3;
+  color: #ffffff;
+}
+
+.btn--primary:hover {
+  background-color: #1976D2;
+}
+
+/* セカンダリボタン（グレー） */
+.btn--secondary {
+  background-color: #757575;
+  color: #ffffff;
+}
+
+.btn--secondary:hover {
+  background-color: #616161;
+}
+
+/* 危険色ボタン（赤） */
+.btn--danger {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.btn--danger:hover {
+  background-color: #d32f2f;
+}
+
+/* サインアウトボタン（小サイズ） */
+.btn--signout {
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  background-color: #757575;
+  color: #ffffff;
+}
+
+.btn--signout:hover {
+  background-color: #616161;
+}
+
+/* --------------------------------------------------------------------------
+   フォーム要素
+   -------------------------------------------------------------------------- */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #555555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #333333;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* --------------------------------------------------------------------------
+   メッセージ（エラー・成功）
+   -------------------------------------------------------------------------- */
+.message {
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+  display: none;
+}
+
+.message--error {
+  background-color: #ffebee;
+  color: #f44336;
+  border: 1px solid #ffcdd2;
+  display: block;
+}
+
+.message--success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+  display: block;
+}
+
+/* インラインエラー（フォーム要素直下） */
+.error-text {
+  color: #f44336;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: none;
+}
+
+.error-text--visible {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   ロール選択ボタン（サインインページ）
+   -------------------------------------------------------------------------- */
+.role-selector {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.role-selector__btn {
+  flex: 1;
+  padding: 14px 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  border: 2px solid #cccccc;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #555555;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, color 0.2s, transform 0.1s;
+}
+
+.role-selector__btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.88);
+}
+
+.role-selector__btn:hover {
+  border-color: #2196F3;
+  color: #2196F3;
+}
+
+/* アクティブ状態のハイライト */
+.role-selector__btn--active {
+  border-color: #2196F3;
+  background-color: #e3f2fd;
+  color: #1565C0;
+}
+
+/* --------------------------------------------------------------------------
+   サインインフォームコンテナ
+   -------------------------------------------------------------------------- */
+.signin-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.signin-container__title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+  color: #333333;
+}
+
+/* --------------------------------------------------------------------------
+   質問カード
+   -------------------------------------------------------------------------- */
+.question-list {
+  margin-top: 24px;
+}
+
+.question-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s;
+}
+
+.question-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.question-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: #757575;
+}
+
+.question-card__number {
+  font-weight: bold;
+  color: #2196F3;
+}
+
+.question-card__date {
+  color: #9e9e9e;
+}
+
+.question-card__name {
+  font-size: 0.8rem;
+  color: #757575;
+  margin-bottom: 4px;
+}
+
+.question-card__content {
+  font-size: 0.9rem;
+  color: #333333;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   回答エリア（質問カード内）
+   -------------------------------------------------------------------------- */
+.answer-area {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eeeeee;
+}
+
+.answer-area__label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-bottom: 4px;
+}
+
+.answer-area__content {
+  font-size: 0.875rem;
+  color: #333333;
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* 未回答ラベル */
+.answer-area__unanswered {
+  font-size: 0.8rem;
+  color: #9e9e9e;
+  font-style: italic;
+}
+
+/* --------------------------------------------------------------------------
+   回答入力エリア（インストラクターページ）
+   -------------------------------------------------------------------------- */
+.answer-form {
+  margin-top: 12px;
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.answer-form textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.875rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+
+.answer-form textarea:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+}
+
+.answer-form__actions {
+  margin-top: 8px;
+  text-align: right;
+}
+
+/* --------------------------------------------------------------------------
+   質問選択可能カード（インストラクターページ）
+   -------------------------------------------------------------------------- */
+.question-card--selectable {
+  cursor: pointer;
+}
+
+.question-card--selectable:hover {
+  border-color: #2196F3;
+}
+
+.question-card--selected {
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   インストラクター選択UI（サインイン後のアクション選択）
+   -------------------------------------------------------------------------- */
+.action-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.action-selector__btn {
+  padding: 14px 8px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333333;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.1s;
+}
+
+.action-selector__btn:hover {
+  border-color: #2196F3;
+  background-color: #e3f2fd;
+}
+
+.action-selector__btn:active {
+  transform: scale(0.96);
+  filter: brightness(0.88);
+}
+
+/* --------------------------------------------------------------------------
+   クラス一覧テーブル（クラス登録ページ）
+   -------------------------------------------------------------------------- */
+.class-list {
+  margin-top: 32px;
+}
+
+.class-list__title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #333333;
+}
+
+.class-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.class-table th,
+.class-table td {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.class-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  color: #555555;
+}
+
+.class-table tr {
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.class-table tr:hover {
+  background-color: #e3f2fd;
+}
+
+.class-table tr--selected {
+  background-color: #bbdefb;
+}
+
+/* --------------------------------------------------------------------------
+   セクションタイトル
+   -------------------------------------------------------------------------- */
+.section-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #2196F3;
+}
+
+/* --------------------------------------------------------------------------
+   ClassID 入力フォーム（インストラクター用）
+   -------------------------------------------------------------------------- */
+.classid-input {
+  margin-top: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   URLリンク（質問・回答中のURL）
+   -------------------------------------------------------------------------- */
+.question-card__content a,
+.answer-area__content a {
+  color: #1976D2;
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.question-card__content a:hover,
+.answer-area__content a:hover {
+  color: #0D47A1;
+}
+
+/* --------------------------------------------------------------------------
+   非表示ユーティリティ
+   -------------------------------------------------------------------------- */
+.hidden {
+  display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   ローディング表示
+   -------------------------------------------------------------------------- */
+.loading {
+  text-align: center;
+  padding: 24px;
+  color: #757575;
+  font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   空の状態表示
+   -------------------------------------------------------------------------- */
+.empty-state {
+  text-align: center;
+  padding: 32px;
+  color: #9e9e9e;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   レスポンシブ対応（min-width ベース — モバイルファースト）
+   ========================================================================== */
+
+/* 768px 以上：タブレット・デスクトップ */
+@media (min-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .container {
+    padding: 24px;
+  }
+
+  .header {
+    padding: 20px 0;
+  }
+
+  .header__title {
+    font-size: 1.5rem;
+  }
+
+  .signin-container {
+    padding: 40px;
+    margin-top: 80px;
+  }
+
+  .signin-container__title {
+    font-size: 1.75rem;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .role-selector__btn {
+    padding: 18px 12px;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+
+  .question-card {
+    padding: 20px;
+  }
+
+  .question-card__content {
+    font-size: 0.95rem;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="password"],
+  .form-group input[type="date"],
+  .form-group textarea,
+  .form-group select {
+    padding: 12px 14px;
+    font-size: 0.95rem;
+  }
+
+  .class-table th,
+  .class-table td {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+
+  .action-selector {
+    flex-direction: row;
+  }
+
+  .action-selector__btn {
+    flex: 1;
+    padding: 16px 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+}

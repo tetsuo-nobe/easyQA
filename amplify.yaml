@@ -1,0 +1,14 @@
+version: 1
+applications:
+  - appRoot: frontend
+    frontend:
+      phases:
+        build:
+          commands:
+            - echo "No build step required for static HTML"
+      artifacts:
+        baseDirectory: frontend
+        files:
+          - "**/*"
+      cache:
+        paths: []

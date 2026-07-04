@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>easyQA - 受講者</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- ヘッダー: ページタイトルとサインアウトボタン -->
+    <header class="header">
+      <h1 class="header__title">easyQA - 受講者</h1>
+      <div class="header__actions">
+        <button id="signout-btn" class="btn btn--signout">サインアウト</button>
+      </div>
+    </header>
+
+    <!-- 質問送信フォーム -->
+    <section>
+      <h2 class="section-title">質問・コメントを送信</h2>
+      <div id="submit-error" class="message"></div>
+      <form id="question-form">
+        <div class="form-group">
+          <label for="question-content">質問・コメント（必須・最大500文字）</label>
+          <textarea id="question-content" maxlength="500" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="question-name">名前（任意・最大50文字）</label>
+          <input type="text" id="question-name" maxlength="50">
+        </div>
+        <button type="submit" class="btn btn--primary">送信</button>
+      </form>
+    </section>
+
+    <!-- 質問・回答一覧 -->
+    <section class="question-list">
+      <h2 class="section-title">質問・回答一覧</h2>
+      <div id="question-list"></div>
+    </section>
+  </div>
+
+  <!-- JavaScript読み込み -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/learner.js"></script>
+</body>
+</html>
