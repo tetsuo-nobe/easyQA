@@ -53,18 +53,43 @@ async function getQuestions(classId) {
  * @param {string} classId - クラスID
  * @param {string} content - 質問内容（最大500文字）
  * @param {string} name - 投稿者名（任意・最大50文字）
+ * @param {string} deletePassword - 削除用パスワード（半角英数字8文字）
  * @returns {Promise<object>} 送信結果
  */
-async function submitQuestion(classId, content, name) {
+async function submitQuestion(classId, content, name, deletePassword) {
   const response = await fetch(`${API_BASE_URL}/questions`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ classId, content, name })
+    body: JSON.stringify({ classId, content, name, deletePassword })
   });
 
   if (!response.ok) {
     const errorData = await response.json();
     const error = new Error(errorData.message || '質問の送信に失敗しました。');
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+}
+
+/**
+ * 質問削除API（論理削除）
+ * @param {string} classId - クラスID
+ * @param {number} questionNumber - 削除対象の質問番号
+ * @param {string} deletePassword - 削除用パスワード
+ * @returns {Promise<object>} 削除結果
+ */
+async function deleteQuestion(classId, questionNumber, deletePassword) {
+  const response = await fetch(`${API_BASE_URL}/questions/${questionNumber}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ classId, deletePassword })
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    const error = new Error(errorData.message || '削除に失敗しました。');
     error.status = response.status;
     throw error;
   }

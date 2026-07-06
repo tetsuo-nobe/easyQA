@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadQuestions(classId) {
   try {
     const data = await getQuestions(classId);
-    renderQuestions(data.questions || []);
+    renderQuestions(data.questions || [], classId);
   } catch (error) {
     // 通信エラー時は一覧エリアにメッセージ表示
     const listContainer = document.getElementById('question-list');
@@ -45,8 +45,9 @@ async function loadQuestions(classId) {
 /**
  * 質問一覧をDOMに描画する
  * @param {Array} questions - 質問データの配列（降順ソート済み）
+ * @param {string} classId - クラスID
  */
-function renderQuestions(questions) {
+function renderQuestions(questions, classId) {
   const listContainer = document.getElementById('question-list');
 
   if (questions.length === 0) {
@@ -91,6 +92,7 @@ function renderQuestions(questions) {
           <span class="question-card__number">質問 #${q.questionNumber}</span>
           <span class="question-card__date">${dateStr}</span>
           <span class="question-card__name">${nameDisplay}</span>
+          <button class="question-card__delete-link" data-question-number="${q.questionNumber}" type="button">削除</button>
         </div>
         <div class="question-card__content">${contentHtml}</div>
         ${answerHtml}
@@ -99,6 +101,14 @@ function renderQuestions(questions) {
   }).join('');
 
   listContainer.innerHTML = html;
+
+  // 削除ボタンのイベントリスナー登録
+  listContainer.querySelectorAll('.question-card__delete-link').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const questionNumber = parseInt(btn.dataset.questionNumber, 10);
+      handleDeleteQuestion(classId, questionNumber);
+    });
+  });
 }
 
 /**
@@ -109,6 +119,7 @@ function renderQuestions(questions) {
 async function handleSubmitQuestion(classId) {
   const contentEl = document.getElementById('question-content');
   const nameEl = document.getElementById('question-name');
+  const deletePasswordEl = document.getElementById('question-delete-password');
   const errorEl = document.getElementById('submit-error');
 
   // エラーメッセージをクリア
@@ -117,6 +128,7 @@ async function handleSubmitQuestion(classId) {
 
   const content = contentEl.value;
   const name = nameEl.value.trim();
+  const deletePassword = deletePasswordEl.value;
 
   // バリデーション: 空欄チェック（空白のみも無効）
   if (!content || content.trim() === '') {
@@ -130,6 +142,17 @@ async function handleSubmitQuestion(classId) {
     return;
   }
 
+  // バリデーション: 削除用パスワード（必須）
+  if (!deletePassword) {
+    showError(errorEl, '削除用パスワードを入力してください。');
+    return;
+  }
+  // バリデーション: 半角英数字8文字以上チェック
+  if (!/^[A-Za-z0-9]{8,}$/.test(deletePassword)) {
+    showError(errorEl, '削除用パスワードは半角英数字8文字以上で入力してください。');
+    return;
+  }
+
   // 確認ダイアログ
   if (!confirm('質問を送信します。よろしいですか？')) {
     return;
@@ -137,7 +160,7 @@ async function handleSubmitQuestion(classId) {
 
   // API送信
   try {
-    await submitQuestion(classId, content, name);
+    await submitQuestion(classId, content, name, deletePassword);
 
     // 成功時: 一覧を再取得して更新
     await loadQuestions(classId);
@@ -145,11 +168,57 @@ async function handleSubmitQuestion(classId) {
     // フォームをクリア
     contentEl.value = '';
     nameEl.value = '';
+    deletePasswordEl.value = '';
     errorEl.textContent = '';
     errorEl.classList.remove('message--error');
   } catch (error) {
     // 通信エラー時: エラーメッセージを表示し、入力内容を保持
     showError(errorEl, '送信に失敗しました。');
+  }
+}
+
+/**
+ * 質問削除処理フロー
+ * prompt → 処理中表示 → API呼び出し → 結果反映
+ * @param {string} classId - クラスID
+ * @param {number} questionNumber - 削除対象の質問番号
+ */
+async function handleDeleteQuestion(classId, questionNumber) {
+  // 削除用パスワード入力プロンプト
+  const deletePassword = prompt('削除用パスワードを入力してください。');
+  if (deletePassword === null) {
+    // キャンセル: 何もしない
+    return;
+  }
+
+  // 処理中表示 + 全削除ボタンを無効化
+  const processingEl = document.getElementById('delete-processing');
+  processingEl.classList.remove('hidden');
+  const allDeleteBtns = document.querySelectorAll('.question-card__delete-link');
+  allDeleteBtns.forEach((btn) => { btn.disabled = true; });
+
+  // エラーメッセージをクリア
+  const errorEl = document.getElementById('submit-error');
+  errorEl.textContent = '';
+  errorEl.classList.remove('message--error');
+
+  try {
+    await deleteQuestion(classId, questionNumber, deletePassword);
+    // 成功: 一覧再取得・再描画（DOM再描画されるのでボタン再有効化は不要）
+    await loadQuestions(classId);
+  } catch (error) {
+    if (error.status === 401) {
+      showError(errorEl, '削除用パスワードが正しくありません。');
+    } else if (error.status === 403) {
+      showError(errorEl, 'この質問は削除できません。（削除用パスワードが設定されていません）');
+    } else {
+      showError(errorEl, '削除に失敗しました。');
+    }
+    // エラー時のみ削除ボタンを再有効化
+    document.querySelectorAll('.question-card__delete-link').forEach((btn) => { btn.disabled = false; });
+  } finally {
+    // 処理中メッセージを必ず非表示化
+    processingEl.classList.add('hidden');
   }
 }
 

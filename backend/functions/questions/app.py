@@ -1,6 +1,11 @@
+import hashlib
+import hmac
 import json
 import os
+import re
+import secrets
 from datetime import datetime, timezone, timedelta
+from decimal import Decimal
 
 import boto3
 from boto3.dynamodb.conditions import Key
@@ -14,6 +19,23 @@ table = dynamodb.Table(QUESTIONS_TABLE)
 
 # 日本標準時（UTC+9）
 JST = timezone(timedelta(hours=9))
+
+
+def hash_delete_password(password: str) -> str:
+    """削除用パスワードをPBKDF2-SHA256でハッシュ化する（salt付き）"""
+    salt = secrets.token_hex(16)
+    dk = hashlib.pbkdf2_hmac('sha256', password.encode('utf-8'), salt.encode('utf-8'), 260000)
+    return f"pbkdf2:sha256:260000:{salt}:{dk.hex()}"
+
+
+def verify_delete_password(password: str, stored_hash: str) -> bool:
+    """削除用パスワードをhmac.compare_digestによる定数時間比較で照合する（タイミング攻撃防止）"""
+    try:
+        _, algorithm, iterations, salt, hash_hex = stored_hash.split(':', 4)
+        dk = hashlib.pbkdf2_hmac(algorithm, password.encode('utf-8'), salt.encode('utf-8'), int(iterations))
+        return hmac.compare_digest(dk.hex(), hash_hex)
+    except Exception:
+        return False
 
 
 def error_response(status_code: int, message: str) -> dict:
@@ -59,11 +81,15 @@ def handle_get_questions(event):
     # レスポンス用にデータを整形
     questions = []
     for item in response.get("Items", []):
+        # deleted: True のアイテムを除外（後方互換: deleted属性なしは有効として扱う）
+        if item.get("deleted", False):
+            continue
         question = {
             "questionNumber": int(item["questionNumber"]),
             "submittedAt": item["submittedAt"],
             "content": item["content"],
             "name": item.get("name", "")
+            # deletePasswordHash は意図的に含めない（セキュリティ）
         }
         # 回答がある場合のみ含める
         if "answer" in item:
@@ -100,6 +126,13 @@ def handle_post_questions(event):
     if len(name) > 50:
         return error_response(400, "名前は50文字以内で入力してください。")
 
+    # バリデーション: deletePassword（必須、半角英数字8文字固定）
+    delete_password = body.get("deletePassword", "")
+    if not delete_password:
+        return error_response(400, "削除用パスワードを入力してください。")
+    if not re.fullmatch(r'[A-Za-z0-9]{8,}', delete_password):
+        return error_response(400, "削除用パスワードは半角英数字8文字以上で入力してください。")
+
     # 同一 classId の最新 questionNumber を取得（降順1件）
     query_response = table.query(
         KeyConditionExpression=Key("classId").eq(class_id),
@@ -119,13 +152,16 @@ def handle_post_questions(event):
 
     # DynamoDB 条件付き書き込み（競合防止）
     try:
+        # deletePassword はハッシュ化して保存（平文は保存しない）
+        delete_password_hash = hash_delete_password(delete_password)
         table.put_item(
             Item={
                 "classId": class_id,
                 "questionNumber": next_question_number,
                 "content": content,
                 "name": name,
-                "submittedAt": submitted_at
+                "submittedAt": submitted_at,
+                "deletePasswordHash": delete_password_hash
             },
             ConditionExpression="attribute_not_exists(questionNumber)"
         )
@@ -139,6 +175,55 @@ def handle_post_questions(event):
     })
 
 
+def handle_delete_question(event):
+    """DELETE /questions/{questionNumber} - 質問の論理削除"""
+    # パスパラメータから questionNumber を取得
+    path_params = event.get("pathParameters") or {}
+    try:
+        question_number = int(path_params.get("questionNumber", ""))
+    except (ValueError, TypeError):
+        return error_response(400, "questionNumber が不正です。")
+
+    # リクエストボディのパース
+    try:
+        body = json.loads(event.get("body") or "{}")
+    except (json.JSONDecodeError, TypeError):
+        return error_response(400, "リクエストボディが不正です。")
+
+    class_id = body.get("classId", "").strip()
+    delete_password = body.get("deletePassword", "")
+
+    # バリデーション
+    if not class_id:
+        return error_response(400, "classId は必須です。")
+    if not delete_password:
+        return error_response(400, "削除用パスワードは必須です。")
+
+    # DynamoDB からレコード取得（questionNumberはDynamoDBのNumber型のためDecimalでラップ）
+    response = table.get_item(Key={"classId": class_id, "questionNumber": Decimal(question_number)})
+    item = response.get("Item")
+
+    # 質問が存在しない・または既に削除済みの場合は 404
+    if not item or item.get("deleted", False):
+        return error_response(404, "質問が見つかりません。")
+
+    # パスワード照合（定数時間比較）
+    stored_hash = item.get("deletePasswordHash", "")
+    if not stored_hash:
+        return error_response(403, "この質問は削除できません。（削除用パスワードが設定されていません）")
+    if not verify_delete_password(delete_password, stored_hash):
+        return error_response(401, "削除用パスワードが正しくありません。")
+
+    # 論理削除: deleted = True を設定
+    table.update_item(
+        Key={"classId": class_id, "questionNumber": question_number},
+        UpdateExpression="SET deleted = :val",
+        ExpressionAttributeValues={":val": True}
+    )
+
+    return success_response(200, {"success": True})
+
+
 def lambda_handler(event, context):
     """質問管理Lambda ハンドラー"""
     try:
@@ -148,6 +233,8 @@ def lambda_handler(event, context):
             return handle_get_questions(event)
         elif http_method == "POST":
             return handle_post_questions(event)
+        elif http_method == "DELETE":
+            return handle_delete_question(event)
         else:
             return error_response(405, "許可されていないHTTPメソッドです。")
 

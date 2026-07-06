@@ -6,7 +6,7 @@ Description: easyQA Backend - API Gateway + Lambda + DynamoDB
 Globals:
   Api:
     Cors:
-      AllowMethods: "'GET,POST,PUT,OPTIONS'"
+      AllowMethods: "'GET,POST,PUT,DELETE,OPTIONS'"
       AllowHeaders: "'Content-Type'"
       AllowOrigin: "'*'"
 
@@ -109,6 +109,7 @@ Resources:
                 - dynamodb:Query
                 - dynamodb:PutItem
                 - dynamodb:GetItem
+                - dynamodb:UpdateItem
               Resource:
                 - !GetAtt QuestionsTable.Arn
       Events:
@@ -122,6 +123,11 @@ Resources:
           Properties:
             Path: /questions
             Method: POST
+        DeleteQuestion:
+          Type: Api
+          Properties:
+            Path: /questions/{questionNumber}
+            Method: DELETE
 
   # Answers Lambda: PUT /questions/{questionNumber}/answer
   # Permissions: GetItem, UpdateItem on Questions table

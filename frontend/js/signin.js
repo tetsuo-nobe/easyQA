@@ -89,9 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // 処理中表示 + ボタン無効化
+    const processingEl = document.getElementById('signin-processing');
+    const submitBtn = learnerForm.querySelector('button[type="submit"]');
+    processingEl.classList.remove('hidden');
+    submitBtn.disabled = true;
+
     try {
       await signIn('learner', classId, password);
-      // 成功時: セッション保存して受講者ページへ遷移
+      // 成功時: セッション保存して受講者ページへ遷移（遷移するのでUI復元不要）
       saveSession('learner', classId, null);
       window.location.href = 'learner.html';
     } catch (error) {
@@ -101,6 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         showError(error.message || 'サインインに失敗しました。');
       }
+      // 処理中表示を解除・ボタン再有効化
+      processingEl.classList.add('hidden');
+      submitBtn.disabled = false;
     }
   });
 
@@ -118,6 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // 処理中表示 + ボタン無効化
+    const processingEl = document.getElementById('signin-processing');
+    const submitBtn = instructorForm.querySelector('button[type="submit"]');
+    processingEl.classList.remove('hidden');
+    submitBtn.disabled = true;
+
     try {
       await signIn('instructor', instructorId, password);
       // 成功時: セッション保存、フォーム非表示、アクション選択UI表示
@@ -127,6 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const roleSelector = document.querySelector('.role-selector');
       if (roleSelector) roleSelector.classList.add('hidden');
       instructorActions.classList.remove('hidden');
+      // 成功時にも処理中表示を解除（ページ遷移ではなくUI切り替えのため）
+      processingEl.classList.add('hidden');
+      submitBtn.disabled = false;
     } catch (error) {
       // エラー時: 日本語メッセージを表示し、フォームの入力内容は保持
       if (error.status === 401) {
@@ -134,6 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         showError(error.message || 'サインインに失敗しました。');
       }
+      // 処理中表示を解除・ボタン再有効化
+      processingEl.classList.add('hidden');
+      submitBtn.disabled = false;
     }
   });
 

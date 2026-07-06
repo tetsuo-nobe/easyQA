@@ -29,9 +29,16 @@
           <label for="question-name">名前（任意・最大50文字）</label>
           <input type="text" id="question-name" maxlength="50">
         </div>
+        <div class="form-group">
+          <label for="question-delete-password">削除用パスワード（必須・半角英数字8文字以上）</label>
+          <input type="password" id="question-delete-password" maxlength="100" placeholder="半角英数字8文字以上">
+        </div>
         <button type="submit" class="btn btn--primary">送信</button>
       </form>
     </section>
+
+    <!-- 削除処理中メッセージ（初期非表示） -->
+    <div id="delete-processing" class="message message--processing hidden">処理中です</div>
 
     <!-- 質問・回答一覧 -->
     <section class="question-list">
