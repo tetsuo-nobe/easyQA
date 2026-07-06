@@ -158,6 +158,12 @@ async function handleSubmitQuestion(classId) {
     return;
   }
 
+  // 処理中表示 + 送信ボタン無効化
+  const processingEl = document.getElementById('submit-processing');
+  const submitBtn = document.querySelector('#question-form button[type="submit"]');
+  processingEl.classList.remove('hidden');
+  submitBtn.disabled = true;
+
   // API送信
   try {
     await submitQuestion(classId, content, name, deletePassword);
@@ -174,6 +180,10 @@ async function handleSubmitQuestion(classId) {
   } catch (error) {
     // 通信エラー時: エラーメッセージを表示し、入力内容を保持
     showError(errorEl, '送信に失敗しました。');
+  } finally {
+    // 処理中表示を必ず解除・ボタン再有効化
+    processingEl.classList.add('hidden');
+    submitBtn.disabled = false;
   }
 }
 
