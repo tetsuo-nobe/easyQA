@@ -240,6 +240,37 @@ aws dynamodb scan --table-name easyqa-users
 | POST | /classes | クラス登録 |
 | PUT | /classes/{classId} | クラス更新 |
 
+## 管理スクリプト
+
+プロジェクトルートに、運用管理用の Python スクリプトを用意しています。
+
+### export_QA.py — 質問・回答のエクスポート
+
+指定したクラスの質問・回答をマークダウンファイルに出力します。削除済みの質問は含まれません。
+
+```bash
+python export_QA.py <classId>
+```
+
+- クラス情報（クラスID、クラス名、期間、質問数）と各質問の日時・番号・回答を含むマークダウンを生成します
+- 出力ファイル名: `QA_yyyymmdd_<classId>.md`
+
+### delete_QA.py — クラスデータの完全削除
+
+指定したクラスのクラス情報・全質問・全回答を DynamoDB から完全に削除します。削除後、そのクラスでの質問送信・回答はできなくなります。
+
+```bash
+python delete_QA.py <classId>
+```
+
+- 実行前にクラス情報を表示し、`yes` を入力しないと削除は実行されません
+- この操作は取り消せないため、必要に応じて事前に `export_QA.py` でバックアップを取得してください
+
+### 前提条件（共通）
+
+- AWS CLI の認証情報が設定済みであること（`aws configure` 等）
+- `boto3` がインストール済みであること（`pip install boto3`）
+
 ## クリーンアップ
 
 ### バックエンドの削除
