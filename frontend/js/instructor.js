@@ -82,7 +82,7 @@
         const existingAnswer = q.answer ? escapeHtmlEntities(q.answer) : '';
         html += '  <div class="answer-form">';
         html += '    <textarea id="answer-input" maxlength="1000" placeholder="回答を入力してください（最大1000文字）">' + existingAnswer + '</textarea>';
-        html += '    <p class="markdown-hint">Markdown記法が使えます: <code>**太字**</code> <code>*斜体*</code> <code>`コード`</code> <code>- リスト</code> <code>1. 番号付きリスト</code> <code>[リンク](URL)</code></p>';
+        html += '    <p class="markdown-hint">Markdown記法が使えます</p>';
         html += '    <div class="answer-form__actions">';
         html += '      <button id="submit-answer-btn" class="btn btn--primary">回答を送信</button>';
         html += '    </div>';

@@ -642,14 +642,11 @@ describe('.markdown-hint のDOM存在確認', () => {
       expect(hintEl.style.display).not.toBe('none');
     });
 
-    it('.markdown-hintのテキスト内容にMarkdown記法の案内キーワードが含まれる', () => {
+    it('.markdown-hintのテキスト内容にMarkdown記法についての案内文が含まれる', () => {
       const hintEl = doc.querySelector('.markdown-hint');
       const text = hintEl.textContent;
 
-      expect(text).toContain('太字');
-      expect(text).toContain('斜体');
-      expect(text).toContain('リスト');
-      expect(text).toContain('リンク');
+      expect(text).toContain('Markdown記法');
     });
   });
 
@@ -683,15 +680,12 @@ describe('.markdown-hint のDOM存在確認', () => {
       expect(hintLineMatch).not.toContain('hidden');
     });
 
-    it('.markdown-hintのテンプレート文字列にMarkdown記法の案内キーワードが含まれる', () => {
+    it('.markdown-hintのテンプレート文字列にMarkdown記法についての案内文が含まれる', () => {
       const hintLineMatch = source
         .split('\n')
         .find((line) => line.includes('markdown-hint'));
 
-      expect(hintLineMatch).toContain('太字');
-      expect(hintLineMatch).toContain('斜体');
-      expect(hintLineMatch).toContain('リスト');
-      expect(hintLineMatch).toContain('リンク');
+      expect(hintLineMatch).toContain('Markdown記法');
     });
   });
 });
