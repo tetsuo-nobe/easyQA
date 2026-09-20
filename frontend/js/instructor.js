@@ -29,18 +29,6 @@
   }
 
   /**
-   * HTMLエスケープ（XSS対策）
-   * @param {string} str - エスケープ対象の文字列
-   * @returns {string} エスケープ済み文字列
-   */
-  function escapeHtml(str) {
-    if (!str) return '';
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
-  }
-
-  /**
    * 質問・回答一覧を描画する
    * @param {Array} questions - 質問配列
    */
@@ -57,8 +45,8 @@
       const isSelected = q.questionNumber === selectedQuestionNumber;
       const selectedClass = isSelected ? ' question-card--selected' : '';
 
-      // 質問内容をHTMLエスケープしてからURLをリンクに変換
-      const contentHtml = convertUrlsToLinks(escapeHtml(q.content));
+      // 質問内容をMarkdown記法として解釈し、サニタイズ済みHTMLに変換
+      const contentHtml = renderMarkdownSafe(q.content);
 
       // 日付フォーマット
       const dateStr = q.submittedAt
@@ -67,7 +55,7 @@
 
       // 投稿者名
       const nameHtml = q.name
-        ? '<div class="question-card__name">投稿者: ' + escapeHtml(q.name) + '</div>'
+        ? '<div class="question-card__name">投稿者: ' + escapeHtmlEntities(q.name) + '</div>'
         : '';
 
       html += '<div class="question-card question-card--selectable' + selectedClass + '" data-question-number="' + q.questionNumber + '">';
@@ -81,7 +69,7 @@
       // 回答エリア
       html += '  <div class="answer-area">';
       if (q.answer) {
-        const answerHtml = convertUrlsToLinks(escapeHtml(q.answer));
+        const answerHtml = renderMarkdownSafe(q.answer);
         html += '    <div class="answer-area__label">回答</div>';
         html += '    <div class="answer-area__content">' + answerHtml + '</div>';
       } else {
@@ -91,9 +79,10 @@
 
       // 選択中の質問に回答入力フォームを表示
       if (isSelected) {
-        const existingAnswer = q.answer ? escapeHtml(q.answer) : '';
+        const existingAnswer = q.answer ? escapeHtmlEntities(q.answer) : '';
         html += '  <div class="answer-form">';
         html += '    <textarea id="answer-input" maxlength="1000" placeholder="回答を入力してください（最大1000文字）">' + existingAnswer + '</textarea>';
+        html += '    <p class="markdown-hint">Markdown記法が使えます: <code>**太字**</code> <code>*斜体*</code> <code>`コード`</code> <code>- リスト</code> <code>1. 番号付きリスト</code> <code>[リンク](URL)</code></p>';
         html += '    <div class="answer-form__actions">';
         html += '      <button id="submit-answer-btn" class="btn btn--primary">回答を送信</button>';
         html += '    </div>';

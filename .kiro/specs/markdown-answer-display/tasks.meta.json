@@ -1,0 +1,338 @@
+{
+  "pbtResults": {
+    "3.6 Property 4のproperty-based testを作成する（改行の反映）": {
+      "status": "passed",
+      "lastRunTimestamp": 1789867589902
+    }
+  },
+  "executionHistory": {
+    "1. テスト基盤とプロジェクト設定を新規作成する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864774012
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864781412
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789865792781
+      }
+    ],
+    "2.1 IIFEモジュールの骨格、`MARKED_OPTIONS`（`gfm: true`, `breaks: true`）、`SANITIZE_CONFIG`（`ALLOWED_TAGS`, `ALLOWED_ATTR`, `ALLOWED_URI_REGEXP`）を定義する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864774207
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789865798448
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789865874222
+      }
+    ],
+    "2.2 `escapeHtmlEntities(text)`関数を実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775131
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789865879341
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866226427
+      }
+    ],
+    "2.4 `autoLinkPlainUrls(text)`関数を実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775256
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789865880206
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866227322
+      }
+    ],
+    "3.1 `renderMarkdown(text)`を実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775404
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866241810
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866311899
+      }
+    ],
+    "3.2 `renderMarkdownSafe(text)`を実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775509
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866319874
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866583686
+      }
+    ],
+    "4. チェックポイント - `markdown.js`のテストがすべて通ることを確認する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775596
+      }
+    ],
+    "5.1 `convertUrlsToLinks()`関数を`api.js`から削除する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775686
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867241668
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867363414
+      }
+    ],
+    "6.1 `marked.js`（バージョン固定、SRI付き）、`DOMPurify`（バージョン固定、SRI付き）、`frontend/js/markdown.js`の`<script>`タグを追加する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775809
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867243135
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867361319
+      }
+    ],
+    "6.2 質問入力欄（`<textarea id=\"question-content\">`）の直後にMarkdown記法ヒント（`.markdown-hint`）を静的HTMLとして追加する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775889
+      }
+    ],
+    "7.1 `marked.js`（バージョン固定、SRI付き）、`DOMPurify`（バージョン固定、SRI付き）、`frontend/js/markdown.js`の`<script>`タグを追加する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864775974
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867244217
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867362426
+      }
+    ],
+    "8.1 `renderQuestions()`内の`convertUrlsToLinks(escapeHtml(q.content))`と`convertUrlsToLinks(escapeHtml(q.answer))`を`renderMarkdownSafe(q.content)`・`renderMarkdownSafe(q.answer)`に置き換える": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776061
+      }
+    ],
+    "9.1 `renderQuestions()`内の`convertUrlsToLinks(escapeHtml(q.content))`・`convertUrlsToLinks(escapeHtml(q.answer))`を`renderMarkdownSafe(q.content)`・`renderMarkdownSafe(q.answer)`に置き換える": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776151
+      }
+    ],
+    "9.2 回答入力欄（`<textarea id=\"answer-input\">`）へのセット値を`escapeHtmlEntities(q.answer)`に置き換える": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776234
+      }
+    ],
+    "9.4 回答フォームのテンプレート文字列にMarkdown記法ヒント（`.markdown-hint`）を追加する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776320
+      }
+    ],
+    "10. チェックポイント - 表示処理の置き換えが完了したことを確認する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776420
+      }
+    ],
+    "11.1 `.markdown-hint`および`.markdown-hint code`のスタイルを追加する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776512
+      }
+    ],
+    "13. 最終チェックポイント - すべてのテストが通ることを確認する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789864776597
+      }
+    ],
+    "2. `frontend/js/markdown.js`の骨格と内部ユーティリティを実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866227436
+      }
+    ],
+    "2.3 `escapeHtmlEntities(text)`の単体テストを作成する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866312975
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867233887
+      }
+    ],
+    "2.5 Property 3のproperty-based testを作成する（リンクの重複防止・属性付与）": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866314088
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867234904
+      }
+    ],
+    "3. `renderMarkdown(text)`と`renderMarkdownSafe(text)`を実装する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789866583859
+      }
+    ],
+    "3.3 Property 1のproperty-based testを作成する（許可要素・属性のみが残る）": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867246514
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867444647
+      }
+    ],
+    "7. `frontend/instructor.html`にCDNスクリプトと`markdown.js`を読み込む": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867362523
+      }
+    ],
+    "5. `frontend/js/api.js`から`convertUrlsToLinks()`を削除する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867363528
+      }
+    ],
+    "3.4 Property 2のproperty-based testを作成する（危険なURIスキームの無効化）": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867445434
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867522549
+      }
+    ],
+    "3.5 タスク2.5で作成したProperty 3のテストを実行する": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867523617
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867538873
+      }
+    ],
+    "3.6 Property 4のproperty-based testを作成する（改行の反映）": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867524576
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867604166
+      }
+    ],
+    "3.7 Property 5のproperty-based testを作成する（Markdown記法なし時の既存互換性）": [
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789867605222
+      },
+      {
+        "executionId": "10b36256-7caf-4dda-b432-dbc2e6beb4b0",
+        "chatSessionId": "sess_1b696791-13a5-4b0e-97d4-04df02ef676e",
+        "timestamp": 1789868220563
+      }
+    ]
+  }
+}

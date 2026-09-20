@@ -187,20 +187,3 @@ async function saveClass(instructorId, classData) {
 
   return response.json();
 }
-
-/**
- * URLリンク変換ユーティリティ
- * テキスト中の URL を検出し、クリック可能なハイパーリンクに変換する
- * @param {string} text - 変換対象のテキスト
- * @returns {string} URL がリンクタグに変換されたHTML文字列
- */
-function convertUrlsToLinks(text) {
-  if (!text) return '';
-
-  // URL を検出する正規表現（http:// または https:// で始まる文字列）
-  const urlRegex = /(https?:\/\/[^\s<>"')\]]+)/g;
-
-  return text.replace(urlRegex, (url) => {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-  });
-}

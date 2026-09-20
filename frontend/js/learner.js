@@ -59,17 +59,17 @@ function renderQuestions(questions, classId) {
     // 日時フォーマット
     const dateStr = formatDate(q.submittedAt);
 
-    // 質問内容をURL変換して表示
-    const contentHtml = convertUrlsToLinks(escapeHtml(q.content));
+    // 質問内容をMarkdown変換・サニタイズして表示
+    const contentHtml = renderMarkdownSafe(q.content);
 
-    // 名前の表示（未入力時は「匿名」）
-    const nameDisplay = q.name ? escapeHtml(q.name) : '匿名';
+    // 名前の表示（未入力時は「匿名」）。投稿者名はMarkdown解釈対象外のため単純なHTMLエスケープのみ行う
+    const nameDisplay = q.name ? escapeHtmlEntities(q.name) : '匿名';
 
     // 回答エリア
     let answerHtml;
     if (q.answer) {
-      // 回答ありの場合: URLリンク変換して表示
-      const answerContentHtml = convertUrlsToLinks(escapeHtml(q.answer));
+      // 回答ありの場合: Markdown変換・サニタイズして表示
+      const answerContentHtml = renderMarkdownSafe(q.answer);
       answerHtml = `
         <div class="answer-area">
           <span class="answer-area__label">回答:</span>
@@ -240,19 +240,6 @@ async function handleDeleteQuestion(classId, questionNumber) {
 function showError(el, message) {
   el.textContent = message;
   el.classList.add('message--error');
-}
-
-/**
- * HTMLエスケープ処理
- * XSS対策としてユーザー入力をエスケープする
- * @param {string} text - エスケープ対象のテキスト
- * @returns {string} エスケープ済みテキスト
- */
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
 }
 
 /**
