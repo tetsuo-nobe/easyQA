@@ -110,11 +110,12 @@
   function bindCardClickEvents(questions) {
     const cards = document.querySelectorAll('.question-card--selectable');
     cards.forEach(function (card) {
-      card.addEventListener('click', function (e) {
-        // テキストエリアやボタンのクリックはカード選択として処理しない
-        if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON' || e.target.tagName === 'A') {
-          return;
-        }
+      // 開閉の操作領域はヘッダー行のみとする
+      // （質問本文のテキスト選択・コピー操作でカードが閉じ、入力中の回答が失われるのを防ぐ）
+      const header = card.querySelector('.question-card__header');
+      if (!header) return;
+
+      header.addEventListener('click', function () {
         const questionNumber = parseInt(card.getAttribute('data-question-number'), 10);
 
         // 同じカードを再度クリックした場合は選択解除
