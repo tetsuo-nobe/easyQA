@@ -51,9 +51,13 @@
     <!-- 登録済みクラス一覧 -->
     <section class="class-list">
       <h2 class="class-list__title">登録済みクラス一覧</h2>
+      <div class="class-list__actions">
+        <button type="button" id="export-btn" class="btn btn--secondary" disabled>エクスポート</button>
+      </div>
       <table class="class-table">
         <thead>
           <tr>
+            <th class="class-table__check"></th>
             <th>クラスID</th>
             <th>クラス名称</th>
             <th>開始日</th>

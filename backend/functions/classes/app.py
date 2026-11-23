@@ -2,15 +2,21 @@ import hashlib
 import json
 import os
 import secrets
+from datetime import datetime, timezone, timedelta
 
 import boto3
-from boto3.dynamodb.conditions import Attr
+from boto3.dynamodb.conditions import Attr, Key
 
 
 # DynamoDB リソース初期化
 dynamodb = boto3.resource("dynamodb")
 CLASSES_TABLE = os.environ.get("CLASSES_TABLE", "easyqa-classes")
 table = dynamodb.Table(CLASSES_TABLE)
+QUESTIONS_TABLE = os.environ.get("QUESTIONS_TABLE", "easyqa-questions")
+questions_table = dynamodb.Table(QUESTIONS_TABLE)
+
+# 日本標準時（UTC+9）
+JST = timezone(timedelta(hours=9))
 
 
 def hash_password(password: str) -> str:
@@ -149,6 +155,128 @@ def handle_put_class(event):
     return success_response(200, {"success": True})
 
 
+def get_questions_for_export(class_id: str) -> list:
+    """クラスIDに紐づく質問・回答を取得する（削除済みを除外、昇順）。export_QA.py と同一仕様"""
+    questions = []
+    last_evaluated_key = None
+
+    # ページネーション対応: 全件取得
+    while True:
+        query_params = {
+            "KeyConditionExpression": Key("classId").eq(class_id),
+            "ScanIndexForward": True,  # questionNumber 昇順
+        }
+        if last_evaluated_key:
+            query_params["ExclusiveStartKey"] = last_evaluated_key
+
+        response = questions_table.query(**query_params)
+
+        for item in response.get("Items", []):
+            # 削除された質問は除外
+            if item.get("deleted", False):
+                continue
+            questions.append(item)
+
+        last_evaluated_key = response.get("LastEvaluatedKey")
+        if not last_evaluated_key:
+            break
+
+    return questions
+
+
+def generate_markdown(class_info: dict, questions: list, class_id: str) -> str:
+    """マークダウン形式の文字列を生成する。export_QA.py と同一の出力にする"""
+    lines = []
+
+    # ヘッダー: クラス情報
+    class_name = class_info.get("className", "不明")
+    start_date = class_info.get("startDate", "不明")
+    end_date = class_info.get("endDate", "不明")
+
+    lines.append(f"# {class_name} - 質問・回答一覧")
+    lines.append("")
+    lines.append("## クラス情報")
+    lines.append("")
+    lines.append("| 項目 | 内容 |")
+    lines.append("|------|------|")
+    lines.append(f"| クラスID | {class_id} |")
+    lines.append(f"| クラス名 | {class_name} |")
+    lines.append(f"| 開始日 | {start_date} |")
+    lines.append(f"| 終了日 | {end_date} |")
+    lines.append(f"| 質問数 | {len(questions)} |")
+    lines.append("")
+
+    # 質問・回答セクション
+    lines.append("## 質問・回答")
+    lines.append("")
+
+    if not questions:
+        lines.append("質問はありません。")
+        lines.append("")
+    else:
+        for item in questions:
+            question_number = int(item["questionNumber"])
+            submitted_at = item.get("submittedAt", "不明")
+            content = item.get("content", "")
+            name = item.get("name", "")
+            answer = item.get("answer", "")
+
+            # 質問ヘッダー
+            lines.append(f"### Q{question_number}. {content}")
+            lines.append("")
+
+            # メタ情報
+            meta_parts = [f"**日時:** {submitted_at}"]
+            if name:
+                meta_parts.append(f"**投稿者:** {name}")
+            lines.append(" | ".join(meta_parts))
+            lines.append("")
+
+            # 回答
+            if answer:
+                lines.append(f"**A:** {answer}")
+            else:
+                lines.append("**A:** （未回答）")
+            lines.append("")
+            lines.append("---")
+            lines.append("")
+
+    # エクスポート情報（フッター）
+    export_time = datetime.now(JST).isoformat()
+    lines.append(f"*エクスポート日時: {export_time}*")
+    lines.append("")
+
+    return "\n".join(lines)
+
+
+def handle_export_class(event):
+    """GET /classes/{classId}/export - クラスのQ&AをMarkdownでエクスポート"""
+    path_params = event.get("pathParameters") or {}
+    class_id = path_params.get("classId")
+    params = event.get("queryStringParameters") or {}
+    instructor_id = params.get("instructorId")
+
+    if not class_id or not instructor_id:
+        return error_response(400, "classId と instructorId は必須です。")
+
+    class_info = table.get_item(Key={"classId": class_id}).get("Item")
+    # 存在しない、または他のインストラクターのクラスは同じ応答にする
+    if not class_info or class_info.get("instructorId") != instructor_id:
+        return error_response(404, "クラスが見つかりません。")
+
+    questions = get_questions_for_export(class_id)
+    markdown_content = generate_markdown(class_info, questions, class_id)
+
+    # ファイル名（QA_yyyymmdd_classId.md）
+    filename = f"QA_{datetime.now(JST).strftime('%Y%m%d')}_{class_id}.md"
+
+    return success_response(200, {
+        "success": True,
+        "filename": filename,
+        "content": markdown_content
+    })
+
+
 def lambda_handler(event, context):
     """クラス管理Lambda ハンドラー - HTTP メソッド + パスでルーティング"""
     try:
@@ -157,6 +285,9 @@ def lambda_handler(event, context):
 
         if http_method == "GET" and path == "/classes":
             return handle_get_classes(event)
+
+        if http_method == "GET" and path.startswith("/classes/") and path.endswith("/export"):
+            return handle_export_class(event)
 
         if http_method == "POST" and path == "/classes":
             return handle_post_classes(event)

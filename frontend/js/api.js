@@ -143,6 +143,28 @@ async function getClasses(instructorId) {
 }
 
 /**
+ * クラスQ&Aエクスポート API
+ * @param {string} instructorId - インストラクターID
+ * @param {string} classId - クラスID
+ * @returns {Promise<{filename: string, content: string}>} ファイル名とMarkdown本文
+ */
+async function exportClass(instructorId, classId) {
+  const response = await fetch(
+    `${API_BASE_URL}/classes/${encodeURIComponent(classId)}/export?instructorId=${encodeURIComponent(instructorId)}`,
+    { method: 'GET', headers: { 'Content-Type': 'application/json' } }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    const error = new Error(errorData.message || 'エクスポートに失敗しました。');
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+}
+
+/**
  * クラス登録・更新API
  * classData に classId が含まれており更新対象の場合は PUT、それ以外は POST で登録する
  * @param {string} instructorId - インストラクターID

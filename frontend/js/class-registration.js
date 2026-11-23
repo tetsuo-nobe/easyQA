@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const classForm = document.getElementById('class-form');
   classForm.addEventListener('submit', (e) => handleFormSubmit(e, instructorId));
 
+  // エクスポートボタン
+  document.getElementById('export-btn').addEventListener('click', handleExport);
+
   // サインアウトボタン
   const signoutBtn = document.getElementById('signout-btn');
   signoutBtn.addEventListener('click', handleSignout);
@@ -62,6 +65,7 @@ function renderClassTable(classes) {
   classes.forEach((cls) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
+      <td class="class-table__check"><input type="checkbox" class="class-check" aria-label="${escapeHtml(cls.classId)} を選択"></td>
       <td>${escapeHtml(cls.classId)}</td>
       <td>${escapeHtml(cls.className)}</td>
       <td>${escapeHtml(cls.startDate)}</td>
@@ -70,8 +74,66 @@ function renderClassTable(classes) {
 
     // 行クリックで既存クラスをフォームに反映（要件 5.6）
     tr.addEventListener('click', () => selectClass(cls, tr));
+
+    // チェックボックス: 行クリック（フォーム反映）を発火させず、エクスポート対象の選択のみ行う
+    const checkbox = tr.querySelector('.class-check');
+    checkbox.dataset.classId = cls.classId;
+    checkbox.addEventListener('click', (e) => e.stopPropagation());
+    checkbox.addEventListener('change', updateExportButton);
+    tr.querySelector('.class-table__check').addEventListener('click', (e) => e.stopPropagation());
+
     tableBody.appendChild(tr);
   });
+
+  // 再描画で選択が消えるためボタン状態を更新
+  updateExportButton();
+}
+
+/**
+ * チェック済みのクラスIDを取得する
+ * @returns {string[]} 選択中のクラスID配列
+ */
+function getCheckedClassIds() {
+  return Array.from(document.querySelectorAll('#class-table-body .class-check:checked'))
+    .map((cb) => cb.dataset.classId);
+}
+
+/**
+ * エクスポートボタンの有効・無効を更新する（ちょうど1件選択時のみ有効）
+ */
+function updateExportButton() {
+  document.getElementById('export-btn').disabled = getCheckedClassIds().length !== 1;
+}
+
+/**
+ * 選択中のクラスのQ&AをMarkdownファイルとしてダウンロードする
+ */
+async function handleExport() {
+  const classIds = getCheckedClassIds();
+  if (classIds.length !== 1) return;
+
+  const exportBtn = document.getElementById('export-btn');
+  exportBtn.disabled = true;
+  clearMessages();
+
+  try {
+    const instructorId = getSession().instructorId;
+    const { filename, content } = await exportClass(instructorId, classIds[0]);
+
+    const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    showError(error.message || 'エクスポートに失敗しました。');
+  } finally {
+    updateExportButton();
+  }
 }
 
 /**

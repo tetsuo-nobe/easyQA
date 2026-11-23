@@ -699,3 +699,12 @@ body {
     white-space: nowrap;
   }
 }
+
+.class-list__actions {
+  margin-bottom: 8px;
+}
+
+.class-table__check {
+  width: 2.5em;
+  text-align: center;
+}
