@@ -277,6 +277,62 @@ def handle_export_class(event):
     })
 
 
+def delete_all_questions(class_id: str) -> int:
+    """クラスIDに紐づく全質問を削除し、削除件数を返す。delete_QA.py と同一仕様"""
+    deleted_count = 0
+    last_evaluated_key = None
+
+    # ページネーション対応: 全件取得して順次削除
+    while True:
+        query_params = {
+            "KeyConditionExpression": Key("classId").eq(class_id),
+            "ProjectionExpression": "classId, questionNumber",  # キーのみ取得
+        }
+        if last_evaluated_key:
+            query_params["ExclusiveStartKey"] = last_evaluated_key
+
+        response = questions_table.query(**query_params)
+
+        # BatchWriteItem で一括削除（25件ずつ）
+        with questions_table.batch_writer() as batch:
+            for item in response.get("Items", []):
+                batch.delete_item(
+                    Key={
+                        "classId": item["classId"],
+                        "questionNumber": item["questionNumber"],
+                    }
+                )
+                deleted_count += 1
+
+        last_evaluated_key = response.get("LastEvaluatedKey")
+        if not last_evaluated_key:
+            break
+
+    return deleted_count
+
+
+def handle_delete_class(event):
+    """DELETE /classes/{classId} - クラスと紐づく質問・回答を削除"""
+    path_params = event.get("pathParameters") or {}
+    class_id = path_params.get("classId")
+    params = event.get("queryStringParameters") or {}
+    instructor_id = params.get("instructorId")
+
+    if not class_id or not instructor_id:
+        return error_response(400, "classId と instructorId は必須です。")
+
+    class_info = table.get_item(Key={"classId": class_id}).get("Item")
+    # 存在しない、または他のインストラクターのクラスは同じ応答にする
+    if not class_info or class_info.get("instructorId") != instructor_id:
+        return error_response(404, "クラスが見つかりません。")
+
+    # 質問・回答 → クラス情報の順に削除（途中失敗時もクラスが残り再実行できる）
+    deleted_count = delete_all_questions(class_id)
+    table.delete_item(Key={"classId": class_id})
+
+    return success_response(200, {"success": True, "deletedQuestions": deleted_count})
+
+
 def lambda_handler(event, context):
     """クラス管理Lambda ハンドラー - HTTP メソッド + パスでルーティング"""
     try:
@@ -294,6 +350,9 @@ def lambda_handler(event, context):
 
         if http_method == "PUT" and path.startswith("/classes/"):
             return handle_put_class(event)
+
+        if http_method == "DELETE" and path.startswith("/classes/"):
+            return handle_delete_class(event)
 
         return error_response(404, "エンドポイントが見つかりません。")
 

@@ -26,6 +26,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   // エクスポートボタン
   document.getElementById('export-btn').addEventListener('click', handleExport);
 
+  // 削除ボタンと確認ダイアログ
+  document.getElementById('delete-btn').addEventListener('click', openDeleteModal);
+  document.getElementById('delete-cancel-btn').addEventListener('click', closeDeleteModal);
+  document.getElementById('delete-confirm-btn').addEventListener('click', handleDeleteConfirm);
+  document.querySelector('#delete-modal .modal__backdrop').addEventListener('click', closeDeleteModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !document.getElementById('delete-modal').hidden) closeDeleteModal();
+  });
+
   // サインアウトボタン
   const signoutBtn = document.getElementById('signout-btn');
   signoutBtn.addEventListener('click', handleSignout);
@@ -102,7 +111,65 @@ function getCheckedClassIds() {
  * エクスポートボタンの有効・無効を更新する（ちょうど1件選択時のみ有効）
  */
 function updateExportButton() {
-  document.getElementById('export-btn').disabled = getCheckedClassIds().length !== 1;
+  const enabled = getCheckedClassIds().length === 1;
+  document.getElementById('export-btn').disabled = !enabled;
+  document.getElementById('delete-btn').disabled = !enabled;
+}
+
+// 削除確認ダイアログの対象クラスID
+let pendingDeleteClassId = null;
+
+/**
+ * 削除確認ダイアログを開く
+ */
+function openDeleteModal() {
+  const classIds = getCheckedClassIds();
+  if (classIds.length !== 1) return;
+
+  pendingDeleteClassId = classIds[0];
+  const row = document.querySelector(`#class-table-body .class-check[data-class-id="${CSS.escape(pendingDeleteClassId)}"]`).closest('tr');
+  const className = row.children[2].textContent;
+  document.getElementById('delete-modal-target').textContent = `${pendingDeleteClassId}（${className}）`;
+  document.getElementById('delete-modal').hidden = false;
+  document.getElementById('delete-cancel-btn').focus();
+}
+
+/**
+ * 削除確認ダイアログを閉じる
+ */
+function closeDeleteModal() {
+  document.getElementById('delete-modal').hidden = true;
+  pendingDeleteClassId = null;
+}
+
+/**
+ * 確認後にクラスを削除する
+ */
+async function handleDeleteConfirm() {
+  const classId = pendingDeleteClassId;
+  if (!classId) return;
+
+  const confirmBtn = document.getElementById('delete-confirm-btn');
+  confirmBtn.disabled = true;
+  clearMessages();
+
+  try {
+    const instructorId = getSession().instructorId;
+    await deleteClass(instructorId, classId);
+    closeDeleteModal();
+
+    // 削除したクラスを編集中なら、フォームをリセット
+    if (document.getElementById('class-id').value === classId) {
+      resetForm();
+    }
+    await loadClasses(instructorId);
+    showSuccess(`クラス「${classId}」と紐づく質問・回答を削除しました。`);
+  } catch (error) {
+    closeDeleteModal();
+    showError(error.message || 'クラスの削除に失敗しました。');
+  } finally {
+    confirmBtn.disabled = false;
+  }
 }
 
 /**

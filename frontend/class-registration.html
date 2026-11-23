@@ -53,6 +53,7 @@
       <h2 class="class-list__title">登録済みクラス一覧</h2>
       <div class="class-list__actions">
         <button type="button" id="export-btn" class="btn btn--secondary" disabled>エクスポート</button>
+        <button type="button" id="delete-btn" class="btn btn--danger" disabled>削除</button>
       </div>
       <table class="class-table">
         <thead>
@@ -67,6 +68,20 @@
         <tbody id="class-table-body"></tbody>
       </table>
     </section>
+  </div>
+
+  <!-- 削除確認ダイアログ -->
+  <div id="delete-modal" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+      <h2 id="delete-modal-title" class="modal__title">クラスの削除</h2>
+      <p class="modal__text">次のクラスと、紐づく質問・回答をすべて削除します。この操作は取り消せません。</p>
+      <p class="modal__target" id="delete-modal-target"></p>
+      <div class="modal__actions">
+        <button type="button" id="delete-cancel-btn" class="btn btn--secondary">キャンセル</button>
+        <button type="button" id="delete-confirm-btn" class="btn btn--danger">削除する</button>
+      </div>
+    </div>
   </div>
 
   <script src="js/api.js"></script>

@@ -165,6 +165,28 @@ async function exportClass(instructorId, classId) {
 }
 
 /**
+ * クラス削除API（クラスと紐づく質問・回答を物理削除）
+ * @param {string} instructorId - インストラクターID
+ * @param {string} classId - クラスID
+ * @returns {Promise<object>} 削除結果
+ */
+async function deleteClass(instructorId, classId) {
+  const response = await fetch(
+    `${API_BASE_URL}/classes/${encodeURIComponent(classId)}?instructorId=${encodeURIComponent(instructorId)}`,
+    { method: 'DELETE', headers: { 'Content-Type': 'application/json' } }
+  );
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    const error = new Error(errorData.message || 'クラスの削除に失敗しました。');
+    error.status = response.status;
+    throw error;
+  }
+
+  return response.json();
+}
+
+/**
  * クラス登録・更新API
  * classData に classId が含まれており更新対象の場合は PUT、それ以外は POST で登録する
  * @param {string} instructorId - インストラクターID
